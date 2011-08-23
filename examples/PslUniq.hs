@@ -18,7 +18,8 @@ main = do
   
 uniq :: [PSL] -> [PSL]
 uniq [] = []
-uniq (p:ps) = p : go (qname p) ps
-  where go n (q:qs) | qname q == n = go n qs
-                    | otherwise    = q:go (qname q) qs
+uniq (p:ps) = go p ps
+  where go p1 (q:qs) | qname q /= qname p1 = p1 : go q qs
+                     | match q > match p1  = go q qs
+                     | otherwise           = go p1 ps
         go _ [] = []
