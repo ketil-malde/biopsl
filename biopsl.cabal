@@ -18,3 +18,8 @@ Library
   Build-depends:   base >= 3 && < 5, biocore, bytestring
   Hs-Source-Dirs:  src
   Ghc-Options:     -Wall
+
+Executable psluniq
+  Main-Is:        PslUniq.hs
+  Hs-Source-Dirs: src, examples
+  Ghc-Options:    -Wall
