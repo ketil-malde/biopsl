@@ -24,4 +24,4 @@ go :: PSL -> [PSL] -> [PSL]
 go p1 (q:qs) | qname q /= qname p1 = p1 : go q qs
              | match q > match p1  = go q qs
              | otherwise           = go p1 qs
-go _ [] = []
+go p1 [] = [p1]
