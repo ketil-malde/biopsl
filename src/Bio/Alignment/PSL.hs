@@ -32,6 +32,11 @@ readPSL f = parsePSL `fmap` B.readFile f
 writePSL :: FilePath -> [PSL] -> IO ()
 writePSL f =  B.writeFile f . B.append pslHeader . unparsePSL 
 
+printPSL :: [PSL] -> IO ()
+printPSL ps = do
+  B.putStr pslHeader
+  B.putStr $ unparsePSL ps
+
 -- | Parse a 'ByteString' as a PSL file (note that it must contain the PSL header).
 parsePSL :: ByteString -> [PSL]
 parsePSL s = map parseLine $ B.lines $ dropHeader

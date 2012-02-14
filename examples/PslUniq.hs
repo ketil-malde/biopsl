@@ -13,8 +13,7 @@ main = do
         [] -> (parsePSL `fmap` L.getContents)
         [f] -> readPSL f
         _ -> error "Usage: psluniq [pslfile]"
-  L.putStr pslHeader
-  L.putStr $ unparsePSL $ uniq ps
+  printPSL $ uniq ps
   
 uniq :: [PSL] -> [PSL]
 uniq [] = []

@@ -1,5 +1,5 @@
 Name:                biopsl
-Version:             0.2
+Version:             0.3
 Synopsis:            Library and executables for working with PSL files
 Description:         The library contains the functionality for reading and writing
 		     PSL files (alignment data, e.g. from BLAT output). It duplicates
@@ -21,5 +21,10 @@ Library
 
 Executable psluniq
   Main-Is:        PslUniq.hs
+  Hs-Source-Dirs: src, examples
+  Ghc-Options:    -Wall
+
+Executable pslcov
+  Main-Is:        PslCov.hs
   Hs-Source-Dirs: src, examples
   Ghc-Options:    -Wall
