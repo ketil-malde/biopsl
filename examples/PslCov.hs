@@ -7,9 +7,11 @@ import System.Environment (getArgs)
 
 main :: IO ()
 main = do
-  [p,f] <- getArgs
-  printPSL . filter (isHit $ read p) =<< readPSL f
-  
+  args <- getArgs
+  case args of 
+    [p,f] -> printPSL . filter (isHit $ read p) =<< readPSL f
+    _ -> error "Usage: pslcov prob pslfile"
+
 isHit :: Double -> PSL -> Bool
 isHit p x = fromIntegral (match x) / fromIntegral (qsize x) > p
          
