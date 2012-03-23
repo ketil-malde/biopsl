@@ -2,7 +2,7 @@
   e.g. pslfilter --identity-min --overhang-max ... --count-max
 -}
 
-{-# Language DeriveDataTypeable #-}
+{-# Language DeriveDataTypeable, OverloadedStrings #-}
 
 import Bio.Alignment.PSL
 import System.Console.CmdArgs
@@ -32,7 +32,7 @@ main = do
         Just d  -> (\x -> local_identity x >= d)
       ohfilter = case overhang opts of  
         Nothing -> const True
-        Just o  -> undefined
+        Just o  -> (\x -> (uncurry max $ overhangs x) < o)
   printPSL $ filter (idfilter .&. ohfilter) ps
 
 (.&.) :: (t -> Bool) -> (t -> Bool) -> t -> Bool
@@ -41,7 +41,10 @@ main = do
 -- | Calculate the smallest overhang, i.e. the unmatched parts
 --   of either query or target on each side of the local alignment.
 overhangs :: PSL -> (Int,Int)
-overhangs = undefined
+overhangs p = case strand p of
+  "+" -> (min (qstart p) (tstart p), min (qsize p-qend p) (tsize p-tend p))
+  "-" -> (min (qstart p) (tsize p-tend p), min (qsize p-qend p) (tstart p))
+  _ -> error ("I couldn't understand strand :"++show (strand p))
 
 -- | Calculate the identity score of the matched region
 local_identity :: PSL -> Double

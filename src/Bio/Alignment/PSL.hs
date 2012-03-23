@@ -4,6 +4,8 @@
 
     See <http://genome.ucsc.edu/FAQ/FAQformat#format2> for details.
 -}
+
+{-# Options -funbox-strict-fields #-} -- makes no difference
 module Bio.Alignment.PSL where
 
 import qualified Data.ByteString.Lazy.Char8 as B
