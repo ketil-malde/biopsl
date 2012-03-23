@@ -49,14 +49,3 @@ overhangs p = case strand p of
 -- | Calculate the identity score of the matched region
 local_identity :: PSL -> Double
 local_identity p = fromIntegral (match p) / fromIntegral (match p + mismatch p)
-
--- -- old stuff -- -- -- --
-uniq :: [PSL] -> [PSL]
-uniq [] = []
-uniq (p:ps) = go p ps
-  
-go :: PSL -> [PSL] -> [PSL]
-go p1 (q:qs) | qname q /= qname p1 = p1 : go q qs
-             | match q > match p1  = go q qs
-             | otherwise           = go p1 qs
-go p1 [] = [p1]
