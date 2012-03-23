@@ -13,6 +13,11 @@ Category:            Bioinformatics
 Build-type:          Simple
 Cabal-version:       >=1.2
 
+Source-repository this
+   Type:      darcs
+   Location:  http://malde.org/~ketil/biohaskell/biosff
+   Tag:       0.3
+
 Library
   Exposed-modules: Bio.Alignment.PSL
   Build-depends:   base >= 3 && < 5, biocore >= 0.1, bytestring
