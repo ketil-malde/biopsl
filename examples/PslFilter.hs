@@ -39,7 +39,7 @@ main = do
       qcfilter = case queryCov opts of
           Nothing -> const True
           Just q -> (\x -> fromIntegral (match x) / fromIntegral (qsize x) >= q)
-      tcfilter = case queryCov opts of
+      tcfilter = case targetCov opts of
           Nothing -> const True
           Just t -> (\x -> fromIntegral (match x) / fromIntegral (tsize x) >= t)
   printPSL $ filter (idfilter .&. ohfilter .&. qcfilter .&. tcfilter ) ps
