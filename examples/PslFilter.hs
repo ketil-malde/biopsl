@@ -10,7 +10,7 @@ import qualified Data.ByteString.Lazy as L
 
 data Options = Opts 
   { input :: Maybe FilePath
-  , identity :: Maybe Double
+  , identity, queryCov, targetCov :: Maybe Double
   , overhang :: Maybe Int
   } deriving (Data,Typeable)
 
@@ -19,7 +19,10 @@ defs = Opts
   { input = Nothing &= args
   , identity = Nothing &= help "minimum identiy for matches" &= name "i"
   , overhang = Nothing &= help "maximum overhang for matches" &= name "h"
-  }
+  , queryCov = Nothing &= help "minimum query coverage" &= name "q"
+  , targetCov = Nothing &= help "minimum target coverage" &= name "t"
+  } &= summary "pslfilter - extract a subset of PSL records"
+    &= program "pslfilter"
 
 main :: IO ()
 main = do
@@ -33,7 +36,14 @@ main = do
       ohfilter = case overhang opts of  
         Nothing -> const True
         Just o  -> (\x -> (uncurry max $ overhangs x) < o)
-  printPSL $ filter (idfilter .&. ohfilter) ps
+      qcfilter = case queryCov opts of
+          Nothing -> const True
+          Just q -> (\x -> fromIntegral (match x) / fromIntegral (qsize x) >= q)
+      tcfilter = case queryCov opts of
+          Nothing -> const True
+          Just t -> (\x -> fromIntegral (match x) / fromIntegral (tsize x) >= t)
+  printPSL $ filter (idfilter .&. ohfilter .&. qcfilter .&. tcfilter ) ps
+
 
 (.&.) :: (t -> Bool) -> (t -> Bool) -> t -> Bool
 (.&.) f g = \x -> f x && g x
