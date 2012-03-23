@@ -24,6 +24,12 @@ Executable psluniq
   Hs-Source-Dirs: src, examples
   Ghc-Options:    -Wall
 
+Executable pslfilter
+  Main-Is:        PslFilter.hs
+  Hs-Source-Dirs: src, examples
+  Build-Depends:  cmdargs
+  Ghc-Options:    -Wall
+
 Executable pslcov
   Main-Is:        PslCov.hs
   Hs-Source-Dirs: src, examples
