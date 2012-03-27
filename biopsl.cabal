@@ -24,6 +24,12 @@ Library
   Hs-Source-Dirs:  src
   Ghc-Options:     -Wall
 
+Executable pslstats
+  Main-Is:        PslStats.hs
+  Hs-Source-Dirs: src, examples
+  Build-depends:  unordered-containers
+  Ghc-Options:    -Wall
+
 Executable psluniq
   Main-Is:        PslUniq.hs
   Hs-Source-Dirs: src, examples
