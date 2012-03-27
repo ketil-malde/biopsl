@@ -12,7 +12,7 @@ main :: IO ()
 main = do
   fs <- getArgs
   ps <- concat `fmap` mapM readPSL fs
-  L.putStrLn $ L.unlines $ map format $ toList $ countTargets ps
+  L.putStr $ L.unlines $ map format $ toList $ countTargets ps
 
 countTargets :: [PSL] -> HashMap L.ByteString Int 
 countTargets ps = fromListWith (+) $ map (\p -> (tname p,1)) ps -- todo:tsize
